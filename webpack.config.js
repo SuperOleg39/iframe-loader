@@ -7,11 +7,11 @@ const options = {
 
     entry: {
         app: './client/bootstrap.js',
-        vendor: ['angular']
+        vendor: ['angular', 'angular-ui-router']
     },
 
     output: {
-        path:     __dirname + '/build/js',
+        path:     __dirname + '/build',
         filename: 'app.bundle.js'
     },
     
