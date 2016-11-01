@@ -14,7 +14,7 @@ const options = {
         path:     __dirname + '/build',
         filename: 'app.bundle.js'
     },
-    
+
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Angular + Webpack',
@@ -22,16 +22,13 @@ const options = {
         }),
         new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js')
     ],
-    
+
     module: {
         loaders: [
             {
                 test:   /\.js$/,
                 exclude: /node_modules/,
-                loader: 'babel-loader',
-                query: {
-                    presets: ['es2015']
-                }
+                loader: 'ng-annotate!babel-loader?presets[]=es2015'
             }
         ]
     }

@@ -7,7 +7,7 @@ angular
 function run($rootScope) {
     $rootScope.hello = 'Hello, app!';
 
-    require.ensure([], function(require) {
-        require('./modules/myModule/myModule.module.js');
-    });
+    // require.ensure([], function(require) {
+    //     require('./modules/myModule/myModule.module.js');
+    // });
 }
