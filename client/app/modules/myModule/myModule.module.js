@@ -1,24 +1,20 @@
 import angular from 'angular';
-import uiRouter from 'angular-ui-router';
 import myModuleComponent from './myModule.component.js';
+import myModuleService from './myModule.service.js';
 
-export default angular.module('myModule', [uiRouter])
+let myModule = angular.module('myModule', [])
     .config(config)
+    .run(run)
+    .service('myModuleService', myModuleService)
     .component('myModule', myModuleComponent);
 
 function config($stateProvider) {
-    // $stateProvider.state('myModule', {
-    //     url: '/',
-    //     component: 'myModule',
-    //     resolve: {
-    //         loadMyModule: ($q) => {
-    //             return $q((resolve) => {
-    //                 require.ensure([], () => {
-    //                     let component = require('./home');
-    //                 });
-    //             })
-    //         }
-    //     }
-    // });
+    'ngInject';
     console.log(2, $stateProvider)
 }
+
+function run() {
+    console.log(3)
+}
+
+export default myModule;

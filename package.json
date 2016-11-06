@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "set NODE_ENV=development&&webpack-dev-server --progress",
-    "build": "set NODE_ENV=production&&webpack --progress"
+    "dev": "set NODE_ENV=development&&webpack-dev-server -d --progress",
+    "build": "set NODE_ENV=production&&webpack -p"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +18,7 @@
     "babel-core": "^6.18.0",
     "babel-loader": "^6.2.7",
     "babel-preset-es2015": "^6.18.0",
+    "html-loader": "^0.4.4",
     "html-webpack-plugin": "^2.24.0",
     "ng-annotate-loader": "^0.2.0",
     "webpack": "^1.13.3",

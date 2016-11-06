@@ -1,18 +1,18 @@
 'use strict';
 
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+let webpack = require('webpack');
+let HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const options = {
+let options = {
 
     entry: {
         app: './client/bootstrap.js',
-        vendor: ['angular', 'angular-ui-router']
+        vendor: ['angular']
     },
 
     output: {
-        path:     __dirname + '/build',
-        filename: 'app.bundle.js'
+        path: __dirname + '/build',
+        filename: '[name].bundle.js'
     },
 
     plugins: [
@@ -29,6 +29,10 @@ const options = {
                 test:   /\.js$/,
                 exclude: /node_modules/,
                 loader: 'ng-annotate!babel-loader?presets[]=es2015'
+            },
+            {
+                test: /\.html$/,
+                loader: 'html'
             }
         ]
     }
