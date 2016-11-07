@@ -1,13 +1,8 @@
-import uiRouter from 'angular-ui-router';
-import oclazyload from 'oclazyload';
-
+// import angular from 'angular';
+import core from './common/app.core';
 import config from './app.config';
 import run from './app.run';
 
-angular
-    .module('app', [
-        uiRouter,
-        oclazyload
-    ])
+angular.module('app', [core])
     .config(config)
     .run(run);

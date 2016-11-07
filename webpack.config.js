@@ -1,26 +1,32 @@
 'use strict';
 
+let path = require('path');
 let webpack = require('webpack');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 
-let options = {
+let config = {
 
     entry: {
-        app: './client/bootstrap.js',
-        vendor: ['angular']
+        app: ['bootstrap.js'],
+        vendor: [
+            'angular', 'angular-ui-router', 'oclazyload'
+        ]
     },
 
     output: {
-        path: __dirname + '/build',
+        path: path.join(__dirname, 'build'),
         filename: '[name].bundle.js'
+    },
+
+    resolve: {
+        root: path.join(__dirname, 'client')
     },
 
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Angular + Webpack',
             template: 'client/index.html'
-        }),
-        new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js')
+        })
     ],
 
     module: {
@@ -38,4 +44,4 @@ let options = {
     }
 };
 
-module.exports = options;
+module.exports = config;

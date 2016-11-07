@@ -1,4 +1,4 @@
-function myModuleService() {
+function newModuleService() {
     let sum = 0;
 
     this.calc = (a, b) => {
@@ -8,4 +8,4 @@ function myModuleService() {
     this.getSum = () => sum;
 }
 
-export default myModuleService;
+export default newModuleService;

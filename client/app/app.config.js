@@ -1,4 +1,4 @@
-function config($stateProvider, $urlRouterProvider) {
+function config($stateProvider, $urlRouterProvider, $httpProvider) {
     'ngInject';
     let access = false;
 
@@ -14,19 +14,40 @@ function config($stateProvider, $urlRouterProvider) {
             url: '/test',
             template: '<my-module></my-module>',
             resolve: {
-                loadMyModule: ($q, $ocLazyLoad) => {
+                module: ($q, $ocLazyLoad) => {
                     return $q((resolve) => {
                         require.ensure([], () => {
-                            let module = require('./modules/myModule/myModule.module.js').default;
-                            $ocLazyLoad.load({name: module.name});
-                            resolve(module.component);
+                            let module = require('app/modules/myModule/myModule.js').default;
+                            $ocLazyLoad.load({name: module});
+                            resolve(module);
                         });
                     });
                 }
             }
         });
     }
+    
+    if (!access) {
+        $stateProvider.state('newModule', {
+            url: '/new',
+            template: '<new-module></new-module>',
+            resolve: {
+                module: ($q, $ocLazyLoad) => {
+                    return $q((resolve) => {
+                        require.ensure([], () => {
+                            let module = require('app/modules/newModule/newModule.js').default;
+                            $ocLazyLoad.load({name: module});
+                            resolve(module);
+                        });
+                    });
+                }
+            }
+        })
+    }
+    
     console.log(1, $stateProvider)
+
+    $httpProvider.interceptors.push('httpInterceptor');
 }
 
 export default config;
