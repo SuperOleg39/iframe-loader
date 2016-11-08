@@ -23,6 +23,7 @@ let config = {
     },
 
     plugins: [
+        new webpack.optimize.DedupePlugin(),
         new HtmlWebpackPlugin({
             title: 'Angular + Webpack',
             template: 'client/index.html'
