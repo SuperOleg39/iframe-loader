@@ -1,48 +1,48 @@
-'use strict';
+const webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-let path = require('path');
-let webpack = require('webpack');
-let HtmlWebpackPlugin = require('html-webpack-plugin');
+module.exports = {
 
-let config = {
+    context: path.resolve(__dirname, 'client'),
 
     entry: {
-        app: ['bootstrap.js'],
-        vendor: [
-            'angular', 'angular-ui-router', 'oclazyload'
-        ]
+        app: './app'
     },
 
     output: {
-        path: path.join(__dirname, 'build'),
+        path: path.resolve(__dirname, 'build'),
         filename: '[name].bundle.js'
     },
 
     resolve: {
-        root: path.join(__dirname, 'client')
+        root: path.resolve(__dirname, 'client'),
+        // modulesDirectories: ['client', 'web_modules', 'node_modules'],
+        // extensions: ['', 'js']
     },
-
-    plugins: [
-        new webpack.optimize.DedupePlugin(),
-        new HtmlWebpackPlugin({
-            title: 'Angular + Webpack',
-            template: 'client/index.html'
-        })
-    ],
 
     module: {
         loaders: [
             {
-                test:   /\.js$/,
+                test: /\.js$/,
                 exclude: /node_modules/,
-                loader: 'ng-annotate!babel-loader?presets[]=es2015'
+                loader: 'ng-annotate!babel?presets[]=es2015'
             },
             {
                 test: /\.html$/,
                 loader: 'html'
+            },
+            {
+                test: /\.(png|jpg|jpeg|svg|gif)$/,
+                exclude: /fonts/,
+                loader: 'file'
             }
         ]
-    }
-};
+    },
 
-module.exports = config;
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './index.html'
+        })
+    ]
+}

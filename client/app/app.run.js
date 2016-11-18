@@ -1,7 +1,6 @@
 function run($rootScope) {
     'ngInject';
-    $rootScope.hello = 'Hello, app!';
-    $rootScope.hi = 'Hi, broah!';
+    $rootScope.ready = true;
 }
 
 export default run;
