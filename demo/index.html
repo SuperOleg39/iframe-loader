@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Корзина заказов</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/sticky-footer-navbar.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script type="text/javascript" src="config.js"></script>
+        <script type="text/javascript">
+            /**
+            * Callback for successful loan getting
+            * @param data.name Loan product name
+            * @param data.bank Bank name
+            * @param data.initial_payment Initial payment amount
+            * @param data.month_payment Month payment amount
+            * @param data.offer_id Id of the offer
+            */
+            function onLoanApprovedCallback(data) {
+                var successStr = 'Покупка оформлена, Вы выбрали кредит &laquo;' + data.name + '&raquo; от &laquo;' + data.bank + '&raquo;.';
+                $('.credit-result').html(successStr);
+            }
+
+            function onLoanRejectedCallback() {
+                $('.credit-result').html('К сожалению, не удалось оформить кредит.');
+            }
+
+            function onUncertainCallback() {
+                $('.credit-result').html('Заявка будет обработана позже');
+            }
+        </script>
+    </head>
+    <body>
+        <script type='text/javascript'>
+            var OB = OB || [];
+            
+            OB.push(['init', {
+                'apikey': 'bf45a405bd46aab3f5829b7b34c8f3820deb1d55',
+                'apikeyIsToken': false
+            }]);
+
+            (function(s, i, d, o, b) {
+                b = d.getElementsByTagName(s)[0];
+                if (d.getElementById(i)) return;
+                o = d.createElement(s);
+                o.id = i;
+                o.async = true;
+                o.src = SERVER_HOST + '/loader.js';
+                b.parentNode.insertBefore(o, b);
+            }('script', 'sidob-js', document));
+        </script>
+
+        <script type="text/javascript">            
+            var startWidget = function () {
+                var widgetOptions = {
+                    'loans': {
+                        'type': 'loans',
+                        'edition': document.querySelector('input[name="widgetEdition"]:checked').value,
+                        'final_page': true,
+                        'success': onLoanApprovedCallback,
+                        'reject': onLoanRejectedCallback,
+                        'uncertain': onUncertainCallback,
+                        'cart': {
+                            'items': [{
+                                'category': {
+                                    'id': 1001
+                                },
+                                'name': "iPhone",
+                                'price': 20000,
+                                'quantity': 1
+                            }],
+                            'shop_order_id': 1,
+                            'total_price': 20000
+                        },
+                        'calculation': {
+                            'initial_payment': 4000,
+                            'period': 12
+                        }
+                    }
+                };
+
+                if (document.querySelector('input[name="widgetContainer"]:checked').value == 'yes') {
+                    widgetOptions.loans.container = 'insuranceWidget';
+                }
+
+                OB.push(['widgets', widgetOptions]);
+                
+                OB.push(['start', 'loans', {
+                    application: {
+                        name: document.getElementById('inputName').value,
+                        surname: document.getElementById('inputSurname').value,
+                        email: document.getElementById('inputEmail').value,
+                        cell_phone: document.getElementById('inputPhone').value,
+                        patronymic: document.getElementById('inputPatronymic').value
+                    }
+                }])
+            }
+        </script>
+
+        <!-- Fixed navbar -->
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand navbar-logo " href="#"><img src="images/main_logo.png"></a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Мобильные телефоны</a></li>
+                        <li><a href="#about">Аксессуары</a></li>
+                        <li><a href="#contact">Квартира и дом</a></li>
+                        <li><a href="#contact">Услуги</a></li>
+                        <li><a href="#contact">Доставка</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+
+        <!-- Begin page content -->
+        <div class="container">
+            <div class="page-header">
+                <h1>Ваш заказ</h1>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Название продукта</th>
+                        <th>Цена</th>
+                        <th>Кол-во</th>
+                        <th>Итого</th>
+                    <tr>
+                </thead>
+                <tr>
+                    <td>1</td>
+                    <td>Телефон Apple iPhone 4S 16Gb белый</td>
+                    <td>19 220 р.</td>
+                    <td>1</td>
+                    <td>19 220 р.</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Кейс для телефона iPhone 4S белый</td>
+                    <td>630 р.</td>
+                    <td>1</td>
+                    <td>630 р.</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Защитная пленка для телефона iPhone</td>
+                    <td>150 р.</td>
+                    <td>1</td>
+                    <td>150 р.</td>
+                </tr>
+                <tr class="result_tr">
+                    <td class="result_tr_first_td" colspan="4">Итого:</td>
+                    <td>20 000 р.</td>
+                </tr>
+            </table>
+            <form class="form-horizontal col-sm-14 form_buy" role="form">
+                <div class="form-group">
+                    <label for="inputSurname" class="col-sm-2 control-label">Фамилия</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="inputSurname" placeholder="Фамилия">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputName" class="col-sm-2 control-label">Имя</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="inputName" placeholder="Имя">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPatronymic" class="col-sm-2 control-label">Отчество</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="inputPatronymic" placeholder="Отчество">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail" class="col-sm-2 control-label">E-mail</label>
+                    <div class="col-sm-4">
+                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPhone" class="col-sm-2 control-label">Телефон</label>
+                    <div class="form_phone_block clearfix col-sm-4">
+                        <div class="col-sm-1 seven_phone" style="vertical-align: middle">
+                            +7
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="inputPhone" placeholder="Номер" maxlength="10">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Тип виджета</label>
+                    <div class="form_phone_block clearfix col-sm-4">
+                        <label class="radio-inline">
+                            <input type="radio" name="widgetEdition" value="one" checked> One
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="widgetEdition" value="many"> Many
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="widgetEdition" value="extended"> Extended
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">В контейнере</label>
+                    <div class="form_phone_block clearfix col-sm-4">
+                        <label class="radio-inline">
+                            <input type="radio" name="widgetContainer" value="yes"> Да
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="widgetContainer" value="no" checked> Нет
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-4">
+                        <button type="submit" class="btn btn-primary btn-lg active">Купить</button>
+                        <button type="submit" onclick="startWidget(); return false;" class="btn btn-primary btn-lg active btn-success" id="buy-on-credit">Купить в кредит</button>
+                    </div>
+                </div>
+              <div class="form-group credit-result">
+
+              </div>
+            </form>
+        </div>
+
+        <div id="insuranceWidget"></div>
+
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="js/vendor/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+        <!--[if lt IE 9]>
+            <script src="js/vendor/html5shiv.min.js"></script>
+            <script src="js/vendor/respond.min.js"></script>
+          <![endif]-->
+    </body>
+</html>

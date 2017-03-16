@@ -1,0 +1,16 @@
+/******************** style for page **************************/
+.result_tr{
+    font-weight: bold;
+}
+.result_tr_first_td{
+    text-align: right;
+}
+.form_buy{
+    margin-top: 40px;
+}
+.form_phone_block >div {
+    padding-left: 0px;
+}
+.form_phone_block .seven_phone{
+    padding-top: 7px;
+}
